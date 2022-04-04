@@ -1,4 +1,6 @@
 import React , {useState} from 'react'
+import axios from 'axios'
+
 
  const Input = () => {
 
@@ -13,12 +15,30 @@ import React , {useState} from 'react'
         setInput('');
     }
 
+  const [data, setData] = useState({
+    name: "",
+    fullName: ""
+  });
+
+    const fetchData =()=> {
+      axios.get('http://nodeawstest-env.eba-pjardzyk.ap-southeast-1.elasticbeanstalk.com/testobj').then(res=> {
+          console.log(res.data);
+          setData({
+            ...data, name: res.data.name, fullName: res.data.fullname
+          });
+      }).catch((e)=> {
+          console.log(e);
+      })
+  }
+
+
   return (
     <div>
 
     <div style={{display: "flex", justifyContent: 'center', alignItems: "center", width: "400px"}}>
             <input value={input} onChange={handleInput} type="text" /> 
             <button onClick={addTask}>Add Task</button>
+            <button onClick={fetchData}>Fetch Data</button>
             
     </div>
      {/* <p>{input}</p> */}
@@ -30,8 +50,11 @@ import React , {useState} from 'react'
             
          })
      }
+     {<p>{data.name}</p>}
+     {<p>{data.fullName}</p>}
 
     </div>
+    
   )
 }
 
