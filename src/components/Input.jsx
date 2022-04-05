@@ -1,4 +1,5 @@
-import React , {useState} from 'react'
+import React , {useState, useEffect} from 'react'
+import Output from './Output'
 import axios from 'axios'
 
 
@@ -6,6 +7,17 @@ import axios from 'axios'
 
     const [input, setInput] = useState("");
     const [tasks, setTask] = useState([]);
+    const [count, setCount] = useState(0);
+    
+
+    useEffect(() => {
+      document.title = `You clicked ${count} times`;
+    });
+
+    const clickCount = () => {
+      setCount(count + 1);
+    }
+
     const handleInput =(e)=> {
         console.log(e.target.value);
         setInput(e.target.value);
@@ -39,6 +51,7 @@ import axios from 'axios'
             <input value={input} onChange={handleInput} type="text" /> 
             <button onClick={addTask}>Add Task</button>
             <button onClick={fetchData}>Fetch Data</button>
+            <button onClick={clickCount}>Click Me</button>
             
     </div>
      {/* <p>{input}</p> */}
@@ -52,8 +65,12 @@ import axios from 'axios'
      }
      {<p>{data.name}</p>}
      {<p>{data.fullName}</p>}
+     {<p>You clicked {count} times</p>}
+
+     <Output name="Output" setParent={setCount} count={count}/>
 
     </div>
+
     
   )
 }

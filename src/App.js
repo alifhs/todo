@@ -8,7 +8,6 @@ function App() {
       <h1>Todo App</h1> 
       <div style={{display : "flex", justifyContent: "center", alignItems: "center"}}> 
         <Input />
-
       </div>
       
     </div>
